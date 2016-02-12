@@ -42,6 +42,7 @@ public class MainActivity extends ActionBarActivity
         mTitle = getTitle();
         //Jenny Quétarasse test
         //Oh jenny si tu savais
+        //Tout
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
