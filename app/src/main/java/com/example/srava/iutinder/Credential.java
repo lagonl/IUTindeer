@@ -5,19 +5,19 @@ package com.example.srava.iutinder;
  */
 public class Credential {
 
-    public String userName;
+    public String username;
     public String password;
 
     public Credential() {
     }
 
     public Credential(String username, String password) {
-        this.userName = username;
+        this.username = username;
         this.password = password;
     }
 
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     public String getPassword() {
@@ -27,7 +27,7 @@ public class Credential {
     @Override
     public String toString() {
         return "Credential{" +
-                "username='" + userName + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
