@@ -82,7 +82,7 @@ class HttpRequestTaskManager extends AsyncTask<Credential, String, JSONObject> {
             // check if connection status is OK
             if(loginOK!=0)
             {
-                connectionStatus.setText("Connecté");
+                connectionStatus.setText("Connecte");
             }
             else
             {
