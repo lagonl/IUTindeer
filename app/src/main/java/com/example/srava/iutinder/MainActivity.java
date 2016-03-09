@@ -52,6 +52,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    public static final int SUCCESS =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
