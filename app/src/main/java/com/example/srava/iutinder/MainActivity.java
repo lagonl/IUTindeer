@@ -37,6 +37,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import static com.example.srava.iutinder.R.layout.activity_main;
 import static com.example.srava.iutinder.R.layout.login;
 
 
@@ -72,15 +73,15 @@ public class MainActivity extends ActionBarActivity
     public void onClick(View v){
         switch(v.getId()) {
             case R.id.btn_cct:
-                final TextView user = (TextView) findViewById(R.id.Mail);
-                final TextView Password = (TextView) findViewById(R.id.psswd);
+                final TextView username = (TextView) findViewById(R.id.username);
+                final TextView password = (TextView) findViewById(R.id.password);
                 final TextView Not_Log = (TextView) findViewById(R.id.Not_Log);
 
                 Toast.makeText(getApplicationContext(), "On te connecte Bro", Toast.LENGTH_SHORT).show();
 
                 Credential credential = new Credential();
-                credential.username = user.getText().toString();
-                credential.password = Password.getText().toString();
+                credential.username = username.getText().toString();
+                credential.password = password.getText().toString();
 
                 HttpRequestTaskManager result = new HttpRequestTaskManager();
                 result.setConnectionStatus(Not_Log);

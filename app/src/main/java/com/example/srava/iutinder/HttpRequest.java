@@ -47,7 +47,7 @@ class HttpRequestTaskManager extends AsyncTask<Credential, String, JSONObject> {
             //Recupere le credential passe en parametre
             Credential credential = params[0];
             String urlParameters = "username=" + credential.username + "&password=" + credential.password;
-            //Recupere les donnees en paraletre
+            //Recupere les donnees en parametre
             byte[] postData = urlParameters.getBytes();
             connection.setRequestProperty("Content-Length", "" + postData.length);
             try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
@@ -56,6 +56,7 @@ class HttpRequestTaskManager extends AsyncTask<Credential, String, JSONObject> {
             // envoie des donnees
             Log.d("HttpRequestTaskBackgr", "ready to send request.");
             connection.connect();
+            Log.d("connect", String.valueOf(connection));
             // decode response
             InputStream in = new BufferedInputStream(connection.getInputStream());
             jsonResponse = new JSONObject(convertStreamToString(in));
@@ -63,7 +64,7 @@ class HttpRequestTaskManager extends AsyncTask<Credential, String, JSONObject> {
         } catch (IOException e) {
             Log.e("IOException", "Error");
         } catch (JSONException e) {
-            Log.e("JSONException", "Error");
+            Log.e("JSONException", "Error (doInBakground) "+e.getMessage());
         } catch (NetworkOnMainThreadException e) {
             connectionStatus.setText("Marche pas si android > 3.0!!");
         }
@@ -90,7 +91,7 @@ class HttpRequestTaskManager extends AsyncTask<Credential, String, JSONObject> {
             }
 
         }  catch(JSONException e){
-            Log.e("JSONException", "Error");
+            Log.e("JSONException", "Error (onPostExecute) ");
         }  catch (NetworkOnMainThreadException e){
             Log.e("ThreadException", "android > 3.0!!");
         }
