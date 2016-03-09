@@ -23,6 +23,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,25 +42,16 @@ import static com.example.srava.iutinder.R.layout.activity_main;
 import static com.example.srava.iutinder.R.layout.login;
 
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener{
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-
-
-    private static final String FLAG_SUCCESS = "Potentiellement";
-    private static final String FLAG_MESSAGE = "Euh...";
-    private static final String LOGIN_URL = "http://iutinder.16mb.com"; // adresse du serveur
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,27 +59,38 @@ public class MainActivity extends ActionBarActivity
         setContentView(login);
         Button Connexion = (Button)findViewById(R.id.btn_cct);
         Connexion.setOnClickListener(this);
+        Log.i("button", "Launch ready");
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public void onClick(View v){
         switch(v.getId()) {
             case R.id.btn_cct:
-                final TextView username = (TextView) findViewById(R.id.username);
-                final TextView password = (TextView) findViewById(R.id.password);
-                final TextView Not_Log = (TextView) findViewById(R.id.Not_Log);
+                //On declare le login et le password
+                EditText username = (EditText) findViewById(R.id.username);
+                EditText password = (EditText) findViewById(R.id.password);
 
-                Toast.makeText(getApplicationContext(), "On te connecte Bro", Toast.LENGTH_SHORT).show();
+                //Recupere le status de connection et la progressBar
+                TextView connectionStatus = (TextView)findViewById(R.id.Not_Log);
+                ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
+                progressBar.setVisibility(v.VISIBLE);
 
+                // permet de reinitialiser le bouton et la TextView
+                //connectionStatus.setText("Non Connecté");
+               // progressBar.setProgress(0);
+
+                //Si le bouton est cliqué il renvoie la chaine de texte "Connection en cours"
+                Toast.makeText(getApplicationContext(),"Connection en cours",Toast.LENGTH_SHORT).show();
+
+                //on crée le credential et on l'instancie avec le login et le password
                 Credential credential = new Credential();
-                credential.username = username.getText().toString();
-                credential.password = password.getText().toString();
+                credential.username=username.getText().toString();
+                credential.password=password.getText().toString();
 
                 HttpRequestTaskManager result = new HttpRequestTaskManager();
-                result.setConnectionStatus(Not_Log);
+                result.setProgressBar(progressBar);
+                result.setConnectionStatus(connectionStatus);
                 result.execute(credential);
-
-                Log.d("HttpRequestManager", String.valueOf(result));
+                Log.d("HttpRequestTaskManager", String.valueOf(result));
 
                 break;
         }
